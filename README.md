@@ -2,7 +2,7 @@
 ***
 ## **Snake Game**
 
-**Développeuses : Jenna-Lee Lecavalier et Cindy Bragdon, étudiantes de deuxième année au DEC Techniques de l'informatique**
+*Développeuses : Jenna-Lee Lecavalier et Cindy Bragdon, étudiantes de deuxième année au DEC Techniques de l'informatique*
 
 Implémenté en JavaScript Vanille, HTLM et CSS
 

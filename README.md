@@ -1,4 +1,4 @@
-# Jenna_Cindy_Snake_Game
+# Jenna_Cindy_Snake_Game_SENDER
 ***
 ## **Snake Game**
 

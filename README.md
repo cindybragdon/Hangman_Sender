@@ -1,6 +1,6 @@
-# Jenna_Cindy_Snake_Game_SENDER
+# Jenna_Cindy_Hangman_Game_SENDER
 ***
-## **Snake Game**
+## **Hangman Game**
 
 *Développeuses : Jenna-Lee Lecavalier et Cindy Bragdon, étudiantes de deuxième année au DEC Techniques de l'informatique*
 

@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap');
 
-body {
+* {
     font-family: "Pixelify Sans", sans-serif;
 }
 
@@ -15,6 +15,21 @@ body {
 }
 
 .alphabet:hover {
+    background-color: #858585;
+}
+
+.space {
+    height: 50px;
+    font-size: 20px;
+    border: none;
+    font-family: "Pixelify Sans", sans-serif;
+    margin-bottom: 5px;
+    padding-right: 70px;
+    padding-left: 70px;
+    background-color: #acacac;
+}
+
+.space:hover{
     background-color: #858585;
 }
 

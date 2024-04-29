@@ -14,7 +14,31 @@
     font-size: 20px;
 }
 
+.alphabet button[disabled]{
+    background-color: aqua;
+
+}
+
+.alphabet:disabled{
+    background-color: aqua;
+}
+
+
+.alphabetPLUS {
+    height: 100px;
+    width: 100px;
+    background-color: #acacac;
+    border: none;
+    font-family: "Pixelify Sans", sans-serif;
+    margin-bottom: 5px;
+    font-size: 40px;
+}
+
 .alphabet:hover {
+    background-color: #858585;
+}
+
+.alphabetPLUS:hover {
     background-color: #858585;
 }
 

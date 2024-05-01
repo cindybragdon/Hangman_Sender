@@ -1,13 +1,29 @@
 const applicationID = 'CINNA'
-const sessionRequest = new chrome.cast.SessionRequest(applicationID);
-const apiConfig = new chrome.cast.ApiConfig(sessionRequest);
 
+let currentSession;
+let currentMediaSession;
+
+function sessionListener(newSession) {
+    currentSession = newSession;
+
+}
+
+function receiverListener(availability) {
+    if (availability === chrome.cast.ReceiverAvailability.AVAILABLE) {
+        document.getElementById('start-btn').style.display = 'block';
+    } else {
+        document.getElementById('start-btn').style.display = 'none';
+    }
+}
 
 document.getElementById('start-btn').addEventListener('click', () => {
    initializeCastApi();
 });
 
 function initializeCastApi() {
+
+    const sessionRequest = new chrome.cast.SessionRequest(chrome.cast.media.DEFAULT_MEDIA_RECEIVER_APP_ID);
+    const apiConfig = new chrome.cast.ApiConfig(sessionRequest);
     chrome.cast.initialize(apiConfig, onInitSuccess, onError);
 }
 

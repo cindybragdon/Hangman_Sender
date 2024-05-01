@@ -5,7 +5,9 @@ let currentMediaSession;
 
 function sessionListener(newSession) {
     currentSession = newSession;
-
+    buttons.forEach(button => {
+        button.style.display = 'none';
+    });
 }
 
 function receiverListener(availability) {
@@ -22,8 +24,8 @@ document.getElementById('start-btn').addEventListener('click', () => {
 
 function initializeCastApi() {
 
-    const sessionRequest = new chrome.cast.SessionRequest(chrome.cast.media.DEFAULT_MEDIA_RECEIVER_APP_ID);
-    const apiConfig = new chrome.cast.ApiConfig(sessionRequest);
+    const sessionRequest = new chrome.cast.SessionRequest(chrome.cast.media(applicationID));
+    const apiConfig = new chrome.cast.ApiConfig(sessionRequest, sessionListener());
     chrome.cast.initialize(apiConfig, onInitSuccess, onError);
 }
 

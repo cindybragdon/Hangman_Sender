@@ -1,22 +1,7 @@
-const applicationID = 'CINNA'
+const applicationID = '0DFBBA32';
 
 let currentSession;
 let currentMediaSession;
-
-function sessionListener(newSession) {
-    currentSession = newSession;
-    buttons.forEach(button => {
-        button.style.display = 'none';
-    });
-}
-
-function receiverListener(availability) {
-    if (availability === chrome.cast.ReceiverAvailability.AVAILABLE) {
-        document.getElementById('start-btn').style.display = 'block';
-    } else {
-        document.getElementById('start-btn').style.display = 'none';
-    }
-}
 
 document.getElementById('start-btn').addEventListener('click', () => {
    initializeCastApi();
@@ -25,7 +10,7 @@ document.getElementById('start-btn').addEventListener('click', () => {
 function initializeCastApi() {
 
     const sessionRequest = new chrome.cast.SessionRequest(chrome.cast.media(applicationID));
-    const apiConfig = new chrome.cast.ApiConfig(sessionRequest, sessionListener());
+    const apiConfig = new chrome.cast.ApiConfig(sessionRequest);
     chrome.cast.initialize(apiConfig, onInitSuccess, onError);
 }
 
@@ -37,7 +22,7 @@ function onError(error) {
     console.error('Error initializing Cast', error);
 }
 
-// GET VALUE OF ALL BUTTONS
+// CHERCHER LA VALEUR DES BOUTONS
 
 const buttons = document.querySelectorAll('button');
 
@@ -46,16 +31,17 @@ buttons.forEach(button => {
 });
 
 function handleClick() {
-    console.log(this.textContent);
+    console.log(this.value);
 
 }
 
-// CHANGE SIZE BUTTONS
+// CHANGER LA GROSSEUR DES BOUTONS
 
 const bigger = document.getElementById("bigger");
 
 
 document.getElementById('bigger').addEventListener('click', function() {
+
     document.querySelectorAll('.alphabet').forEach(button => {
         button.classList.replace('alphabet', 'alphabetPLUS');
     });

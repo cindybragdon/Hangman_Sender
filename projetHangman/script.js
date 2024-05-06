@@ -1,4 +1,6 @@
-const applicationID = '0DFBBA32';
+const applicationID = '749BC3C3';
+// const sessionRequest = new chrome.cast.SessionRequest(chrome.cast.media.DEFAULT_MEDIA_RECEIVER_APP_ID);
+// const apiConfig = new chrome.cast.ApiConfig(sessionRequest);
 
 let currentSession;
 let currentMediaSession;
@@ -9,8 +11,9 @@ document.getElementById('start-btn').addEventListener('click', () => {
 
 function initializeCastApi() {
 
-    const sessionRequest = new chrome.cast.SessionRequest(chrome.cast.media(applicationID));
-    const apiConfig = new chrome.cast.ApiConfig(sessionRequest);
+    const sessionRequest = new chrome.cast.SessionRequest(chrome.cast.media.DEFAULT_MEDIA_RECEIVER_APP_ID);
+    // const sessionRequest = new chrome.cast.SessionRequest(chrome.cast.media(applicationID));
+    const apiConfig = new chrome.cast.ApiConfig(sessionRequest, sessionListener, receiverListener);
     chrome.cast.initialize(apiConfig, onInitSuccess, onError);
 }
 
@@ -21,6 +24,19 @@ function onInitSuccess() {
 function onError(error) {
     console.error('Error initializing Cast', error);
 }
+
+function sessionListener(newSession) {
+    currentSession = newSession;
+
+}
+function receiverListener(availability) {
+    if (availability === chrome.cast.ReceiverAvailability.AVAILABLE) {
+        document.getElementById('start-btn').style.display = 'block';
+    } else {
+        document.getElementById('start-btn').style.display = 'none';
+    }
+}
+
 
 // CHERCHER LA VALEUR DES BOUTONS
 
@@ -46,3 +62,20 @@ document.getElementById('bigger').addEventListener('click', function() {
         button.classList.replace('alphabet', 'alphabetPLUS');
     });
 });
+
+function handleClick() {
+    const buttons = document.querySelectorAll('button');
+    buttons.forEach(button => {
+        button.addEventListener('click', handleClick, false);
+    });
+        console.log(this.value);
+    }
+    const message = {
+        type: 'guess',
+        data: {
+            button :buttons
+        }
+    };
+
+
+

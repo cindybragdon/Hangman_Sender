@@ -31,9 +31,11 @@ function sessionListener(newSession) {
 }
 function receiverListener(availability) {
     if (availability === chrome.cast.ReceiverAvailability.AVAILABLE) {
-        document.getElementById('start-btn').style.display = 'block';
+        document.getElementById('start-btn').style.display = 'none';
+
     } else {
         document.getElementById('start-btn').style.display = 'none';
+        document.getElementById('container').style.display = 'none';
     }
 }
 

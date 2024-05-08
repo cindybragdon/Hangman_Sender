@@ -10,9 +10,8 @@ document.getElementById('start-btn').addEventListener('click', () => {
 });
 
 function initializeCastApi() {
-    // const sessionRequest = new chrome.cast.SessionRequest(applicationID);
-    const sessionRequest = new chrome.cast.SessionRequest(chrome.cast.media.DEFAULT_MEDIA_RECEIVER_APP_ID);
-    // const sessionRequest = new chrome.cast.SessionRequest(chrome.cast.media(applicationID));
+    const sessionRequest = new chrome.cast.SessionRequest(applicationID);
+    // const sessionRequest = new chrome.cast.SessionRequest(chrome.cast.media.DEFAULT_MEDIA_RECEIVER_APP_ID);
     const apiConfig = new chrome.cast.ApiConfig(sessionRequest, sessionListener, receiverListener);
     chrome.cast.initialize(apiConfig, onInitSuccess, onError);
 }
@@ -48,7 +47,10 @@ buttons.forEach(button => {
 });
 
 function handleClick() {
-    console.log(this.value);
+    const letter = (this.value);
+    console.log(letter);
+
+
 
 }
 
@@ -82,19 +84,21 @@ document.getElementById('smaller').addEventListener('click', function() {
     });
 });
 
-// function handleClick() {
-//     const buttons = document.querySelectorAll('button');
-//     buttons.forEach(button => {
-//         button.addEventListener('click', handleClick, false);
-//     });
-//         console.log(this.value);
-//     }
-//     const message = {
-//         type: 'guess',
-//         data: {
-//             button :buttons
-//         }
-//     };
+
+function sendDataToReceiver(letter) {
+    const data = { letter: letter };
+    const json = JSON.stringify(data);
+
+    const fs = require('fs');
+    fs.writeFileSync('data.json', json);
+
+    // Send the file to the receiver
+    if (currentSession) {
+        currentSession.sendMessage('urn:x-cast:cinna', 'data.json');
+    } else {
+        console.error('No active session');
+    }
+}
 
 
 

@@ -49,8 +49,8 @@ buttons.forEach(button => {
 function handleClick() {
     const letter = (this.value);
     console.log(letter);
-
-
+    this.disabled = true;
+    sendData(letter);
 
 }
 
@@ -85,20 +85,22 @@ document.getElementById('smaller').addEventListener('click', function() {
 });
 
 
-function sendDataToReceiver(letter) {
+function sendData(letter) {
     const data = { letter: letter };
     const json = JSON.stringify(data);
 
-    const fs = require('fs');
-    fs.writeFileSync('data.json', json);
-
-    // Send the file to the receiver
+    // Send the JSON data to the receiver
     if (currentSession) {
-        currentSession.sendMessage('urn:x-cast:cinna', 'data.json');
+        currentSession.sendMessage('urn:x-cast:cinna', json, () => {
+            console.log('Message envoyé');
+        }, error => {
+            console.error('Erreur:', error);
+        });
     } else {
-        console.error('No active session');
+        console.error('Pas de session active');
     }
 }
+
 
 
 

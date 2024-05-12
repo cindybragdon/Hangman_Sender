@@ -7,33 +7,38 @@
 .alphabet {
     height: 50px;
     width: 50px;
-    background-color: #acacac;
+    background-color: #313131;
     border: none;
     font-family: "Pixelify Sans", sans-serif;
     margin-bottom: 5px;
     font-size: 20px;
+    color: white;
 }
 
-.alphabet button[disabled]{
-    background-color: aqua;
-
+#bigger {
+    height: 200px;
 }
 
-.alphabet:disabled{
-    background-color: aqua;
+#smaller {
+    height: 200px;
+}
+
+.title {
+    font-size : 40px;
+    padding: 0px;
+    margin-bottom: 0px;
+}
+
+#start-btn {
+    width: 200px;
+    image-rendering: auto;
+    image-rendering: crisp-edges;
+    image-rendering: pixelated;
+    display: inline-flex;
+    margin-top: 250px;
 }
 
 
-
-.alphabetPLUS {
-    height: 150px;
-    width: 150px;
-    background-color: #acacac;
-    border: none;
-    font-family: "Pixelify Sans", sans-serif;
-    margin-bottom: 5px;
-    font-size: 40px;
-}
 
 .alphabet:hover {
     background-color: #858585;
@@ -43,23 +48,19 @@
     background-color: #858585;
 }
 
-.space {
-    height: 50px;
-    font-size: 20px;
-    border: none;
-    font-family: "Pixelify Sans", sans-serif;
-    margin-bottom: 5px;
-    padding-right: 70px;
-    padding-left: 70px;
-    background-color: #acacac;
-}
+
 
 .space:hover{
     background-color: #858585;
 }
 
 .alphabet:disabled {
-    background-color: #efb8b8;
+    background-color: #acacac;
+    color: black;
+}
+.alphabet:disabled:hover {
+    background-color: #6e6b6b;
+    color: black;
 }
 
 .keyboard {
@@ -68,4 +69,9 @@
     text-align: center;
     align-content: center;
     justify-content: center;
+}
+
+small {
+    font-size: 10px;
+    margin-bottom: 60px;
 }

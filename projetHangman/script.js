@@ -7,7 +7,7 @@ let currentSession;
 
 document.getElementById('start-btn').addEventListener('click', () => {
    initializeCastApi();
-    loadReceiver();
+
 });
 
 function initializeCastApi() {
@@ -27,7 +27,7 @@ function onError(error) {
 
 function sessionListener(newSession) {
     currentSession = newSession;
-
+    loadReceiver();
 
 }
 function receiverListener(availability) {
@@ -102,11 +102,10 @@ document.getElementById('smaller').addEventListener('click', function() {
 
 function sendData(letter) {
     const data = { letter: letter };
-    const json = JSON.stringify(data);
+    const messageToBeSent = JSON.stringify(data);
 
-    // Send the JSON data to the receiver
     if (currentSession) {
-        currentSession.sendMessage('urn:x-cast:cinna', json, () => {
+        currentSession.sendMessage('urn:x-cast:cinna', messageToBeSent, () => {
             console.log('Message envoyé');
         }, error => {
             console.error('Erreur:', error);

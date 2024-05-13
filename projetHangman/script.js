@@ -3,10 +3,11 @@ const applicationID = '749BC3C3';
 // const apiConfig = new chrome.cast.ApiConfig(sessionRequest);
 
 let currentSession;
-let currentMediaSession;
+
 
 document.getElementById('start-btn').addEventListener('click', () => {
    initializeCastApi();
+    loadReceiver();
 });
 
 function initializeCastApi() {
@@ -27,6 +28,7 @@ function onError(error) {
 function sessionListener(newSession) {
     currentSession = newSession;
 
+
 }
 function receiverListener(availability) {
     if (availability === chrome.cast.ReceiverAvailability.AVAILABLE) {
@@ -34,6 +36,19 @@ function receiverListener(availability) {
     } else {
         document.getElementById('start-btn').style.display = 'none';
         document.getElementById('container').style.display = 'block';
+    }
+}
+
+function loadReceiver() {
+    if (currentSession) {
+        currentSession.sendMessage('urn:x-cast:cinna', {
+            type: 'LOAD_HTML',
+            html: document.documentElement.outerHTML
+        }, () => {
+            console.log('HTML envoyé');
+        });
+    } else {
+        console.error('Pas de session active');
     }
 }
 

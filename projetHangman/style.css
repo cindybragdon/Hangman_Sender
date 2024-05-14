@@ -4,6 +4,10 @@
     font-family: "Pixelify Sans", sans-serif;
 }
 
+body {
+    height: 100vh;
+}
+
 .alphabet {
     height: 50px;
     width: 50px;
@@ -13,6 +17,10 @@
     margin-bottom: 5px;
     font-size: 20px;
     color: white;
+}
+
+.how {
+    font-size: 25px;
 }
 
 #bigger {

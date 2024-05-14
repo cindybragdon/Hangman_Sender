@@ -33,8 +33,10 @@ function sessionListener(newSession) {
 function receiverListener(availability) {
     if (availability === chrome.cast.ReceiverAvailability.AVAILABLE) {
         document.getElementById('container').style.display = 'none';
+        document.getElementById('howToPlay').style.display = 'block';
     } else {
         document.getElementById('start-btn').style.display = 'none';
+        document.getElementById('howToPlay').style.display = 'none';
         document.getElementById('container').style.display = 'block';
     }
 }

@@ -66,10 +66,7 @@ body {
     background-color: #acacac;
     color: black;
 }
-.alphabet:disabled:hover {
-    background-color: #6e6b6b;
-    color: black;
-}
+
 
 .keyboard {
     margin-right: auto;

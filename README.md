@@ -1,10 +1,10 @@
-# Jenna_Cindy_Hangman_Game_SENDER
+# Jenna_Cindy_Cowboy_Pendu_SENDER
 ***
-## **Hangman Game**
+## **Cowboy pendu**
 
 *Développeuses : Jenna-Lee Lecavalier et Cindy Bragdon, étudiantes de deuxième année au DEC Techniques de l'informatique*
 
-Implémenté en JavaScript Vanille, HTLM et CSS
+Implémenté en JavaScript Vanille, HTLM5 et CSS3
 
 Réalisé dans le cadre du cours Interface Humain Machine
 

@@ -1,20 +1,16 @@
-const applicationID = '749BC3C3';
-// const sessionRequest = new chrome.cast.SessionRequest(chrome.cast.media.DEFAULT_MEDIA_RECEIVER_APP_ID);
-// const apiConfig = new chrome.cast.ApiConfig(sessionRequest);
-
+const applicationID = "0DFBBA32";
 let currentSession;
-
-
-document.getElementById('start-btn').addEventListener('click', () => {
-   initializeCastApi();
-
-});
-
-function initializeCastApi() {
-    const sessionRequest = new chrome.cast.SessionRequest(applicationID);
-    // const sessionRequest = new chrome.cast.SessionRequest(chrome.cast.media.DEFAULT_MEDIA_RECEIVER_APP_ID);
-    const apiConfig = new chrome.cast.ApiConfig(sessionRequest, sessionListener, receiverListener);
-    chrome.cast.initialize(apiConfig, onInitSuccess, onError);
+function initializeCastSdk() {
+    // Check if the Cast SDK is available
+    if (chrome.cast && chrome.cast.isAvailable) {
+        const sessionRequest = new chrome.cast.SessionRequest(applicationID);
+        var apiConfig = new chrome.cast.ApiConfig(sessionRequest,
+            sessionListener,
+            receiverListener);
+        chrome.cast.initialize(apiConfig, onInitSuccess, onError);
+    } else {
+        console.error('Cast SDK not available');
+    }
 }
 
 function onInitSuccess() {
@@ -27,35 +23,48 @@ function onError(error) {
 
 function sessionListener(newSession) {
     currentSession = newSession;
-    loadReceiver();
-
+    setTimeout(() => {
+        sendInitializeMessage();
+    }, 500); // Delay of 500 milliseconds
 }
+
+
 function receiverListener(availability) {
     if (availability === chrome.cast.ReceiverAvailability.AVAILABLE) {
-        document.getElementById('container').style.display = 'none';
-        document.getElementById('howToPlay').style.display = 'block';
+        console.log('Chromecast device is available');
     } else {
-        document.getElementById('start-btn').style.display = 'none';
-        document.getElementById('howToPlay').style.display = 'none';
-        document.getElementById('container').style.display = 'block';
+        console.log('Chromecast device is not available');
     }
 }
 
-function loadReceiver() {
-    if (currentSession) {
-        currentSession.sendMessage('urn:x-cast:cinna', {
-            type: 'LOAD_HTML',
-            html: document.documentElement.outerHTML
-        }, () => {
-            console.log('HTML envoyé');
-        });
+function sendInitializeMessage() {
+    // Check if the Cast SDK is available
+    if (window.cast && cast.framework) {
+        const castSession = cast.framework.CastContext.getInstance().getCurrentSession();
+
+        if (castSession) {
+            castSession.sendMessage('urn:x-cast:cinna', {
+                type: 'initialize'
+            }, response => {
+                if (response && response.type === 'receiverReady') {
+                    console.log('Receiver is ready');
+                } else {
+                    console.log('Receiver initialization failed');
+                }
+            });
+            console.log('Message sent to receiver');
+        } else {
+            console.error('No active Cast session');
+        }
     } else {
-        console.error('Pas de session active');
+        console.error('Cast SDK not available');
     }
 }
 
+document.getElementById('start-btn').addEventListener('click', () => {
+    initializeCastSdk();
+});
 
-// CHERCHER LA VALEUR DES BOUTONS
 
 const buttons = document.querySelectorAll('button');
 
@@ -64,14 +73,11 @@ buttons.forEach(button => {
 });
 
 function handleClick() {
-    const letter = (this.value);
+    const letter = this.value;
     console.log(letter);
     this.disabled = true;
     sendData(letter);
-
 }
-
-// CHANGER VALEUR (SIZE) BOUTONS
 
 document.getElementById('bigger').addEventListener('click', function() {
     document.querySelectorAll('.alphabet').forEach(button => {
@@ -101,22 +107,16 @@ document.getElementById('smaller').addEventListener('click', function() {
     });
 });
 
-
 function sendData(letter) {
-    const data = { letter: letter };
-    const messageToBeSent = JSON.stringify(data);
-
+    const messageToBeSent = letter;
+    console.log('Sending message:', messageToBeSent);
     if (currentSession) {
         currentSession.sendMessage('urn:x-cast:cinna', messageToBeSent, () => {
-            console.log('Message envoyé');
+            console.log('Message sent');
         }, error => {
-            console.error('Erreur:', error);
+            console.error('Error:', error);
         });
     } else {
-        console.error('Pas de session active');
+        console.error('No active session');
     }
 }
-
-
-
-

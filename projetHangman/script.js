@@ -1,5 +1,8 @@
 const applicationID = "0DFBBA32";
 let currentSession;
+
+const CHANNEL1 = 'urn:x-cast:cinna';
+
 function initializeCastSdk() {
     // Check if the Cast SDK is available
     if (chrome.cast && chrome.cast.isAvailable) {
@@ -23,41 +26,18 @@ function onError(error) {
 
 function sessionListener(newSession) {
     currentSession = newSession;
-    setTimeout(() => {
-        sendInitializeMessage();
-    }, 500); // Delay of 500 milliseconds
-}
 
+}
 
 function receiverListener(availability) {
     if (availability === chrome.cast.ReceiverAvailability.AVAILABLE) {
         console.log('Chromecast device is available');
+        console.log(currentSession)
+        document.getElementById("container").style.display="block";
+        document.getElementById("start-btn").style.display="none";
+        document.getElementById("howToPlay").style.display="none";
     } else {
         console.log('Chromecast device is not available');
-    }
-}
-
-function sendInitializeMessage() {
-    // Check if the Cast SDK is available
-    if (window.cast && cast.framework) {
-        const castSession = cast.framework.CastContext.getInstance().getCurrentSession();
-
-        if (castSession) {
-            castSession.sendMessage('urn:x-cast:cinna', {
-                type: 'initialize'
-            }, response => {
-                if (response && response.type === 'receiverReady') {
-                    console.log('Receiver is ready');
-                } else {
-                    console.log('Receiver initialization failed');
-                }
-            });
-            console.log('Message sent to receiver');
-        } else {
-            console.error('No active Cast session');
-        }
-    } else {
-        console.error('Cast SDK not available');
     }
 }
 
@@ -107,16 +87,21 @@ document.getElementById('smaller').addEventListener('click', function() {
     });
 });
 
+// function sendData(letter) {
+//     const messageToBeSent = letter;
+//     console.log('Sending message:', messageToBeSent);
+//     if (currentSession) {
+//         currentSession.sendMessage(CHANNEL1, messageToBeSent, () => {
+//             console.log('Message sent');
+//         }, error => {
+//             console.error('Error:', error);
+//         });
+//     } else {
+//         console.error('No active session');
+//     }
+// }
+
 function sendData(letter) {
-    const messageToBeSent = letter;
-    console.log('Sending message:', messageToBeSent);
-    if (currentSession) {
-        currentSession.sendMessage('urn:x-cast:cinna', messageToBeSent, () => {
-            console.log('Message sent');
-        }, error => {
-            console.error('Error:', error);
-        });
-    } else {
-        console.error('No active session');
-    }
+    const msg = {letter: letter}
+    currentSession.sendMessage(CHANNEL1, msg);
 }

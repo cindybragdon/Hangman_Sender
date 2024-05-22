@@ -1,3 +1,4 @@
+
 const applicationID = "0DFBBA32";
 let currentSession;
 

@@ -59,6 +59,15 @@ function handleClick() {
     sendData(letter);
 }
 
+function resetButtons() {
+    const buttons = document.querySelectorAll('.alphabet');
+    buttons.forEach(button => {
+        button.disabled = false;
+    });
+}
+
+document.getElementById('cowBtn').addEventListener('click', resetButtons);
+
 document.getElementById('bigger').addEventListener('click', function() {
     document.querySelectorAll('.alphabet').forEach(button => {
         let curW = parseFloat(window.getComputedStyle(button).width);
